@@ -6,15 +6,16 @@
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function(className, node, arrayOfClasses) {
   node = node || document.body;
-  arrayOfClasses = arrayOfClasses || [];
+  if (arrayOfClasses === undefined) {
+    arrayOfClasses === [];
+  };
   
-  _.contains(node, className, function() {
-    arrayOfClasses.concat(node.classList);
+  _.contains(node.childNodes, className, function() {
+    if (node.childNodes.childNodes) {
+      getElementsByClassName(className, node.childNodes, arrayOfClasses);
+    }
+    arrayOfClasses.push(node);
   });
-  if (node.childNodes) {
-  getElementsByClassName(className, node.childNodes, arrayOfClasses);
-  } else {
-  return arrayOfClasses;
   // your code here
-  }
+  return arrayOfClasses;
 };
