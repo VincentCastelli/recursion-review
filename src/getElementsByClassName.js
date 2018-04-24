@@ -5,17 +5,20 @@
 
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function(className, node, arrayOfClasses) {
-  node = node || document.body;
-  if (arrayOfClasses === undefined) {
-    arrayOfClasses === [];
-  };
+
+   node = node || document.body;
+   if (arrayOfClasses === undefined) {
+     arrayOfClasses === [];
+   }
   
-  _.contains(node.childNodes, className, function() {
-    if (node.childNodes.childNodes) {
-      getElementsByClassName(className, node.childNodes, arrayOfClasses);
-    }
-    arrayOfClasses.push(node);
-  });
-  // your code here
-  return arrayOfClasses;
+   _.each(node, function(element) {
+       if (element.childNodes) {
+        getElementsByClassName(element.childNodes);
+       } else if ( element.className === className ) {
+        arrayOfClasses.push(element)
+       }
+     });
+
+   return arrayOfClasses; 
 };
+

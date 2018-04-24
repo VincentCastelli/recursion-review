@@ -30,11 +30,26 @@ var stringifyJSON = function(obj) {
     if (obj.length === 0) {
       return '[]';
     } else {
-      var results = '';
+      var results = [];
       _.each(obj, function(el) {
-        results += stringifyJSON(el);
+        results.push(stringifyJSON(el));
       });
-      return '[' + results + ']'; 
+      return '[' + results.join(',') + ']'; 
+    } 
+  } else {
+    if (Object.keys(obj).length === 0) {
+      return '{}'
+    } else {
+    var results = [];
+      for (var key in obj) {
+      var item = '';
+      var prop = obj[key];
+      if (typeof prop !== 'string' && typeof prop !== 'number') {
+}
+      item += '"' + key + '"' + ':' + '"' + prop + '"';
+      results.push(item); 
+    }
+    return '{' + results.join(',') + '}';
     }
   }
 };
