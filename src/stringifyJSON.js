@@ -38,18 +38,18 @@ var stringifyJSON = function(obj) {
     } 
   } else {
     if (Object.keys(obj).length === 0) {
-      return '{}'
+      return '{}';
     } else {
-    var results = [];
+      var results = [];
       for (var key in obj) {
-      var item = '';
-      var prop = obj[key];
-      if (typeof prop !== 'string' && typeof prop !== 'number') {
-}
-      item += '"' + key + '"' + ':' + '"' + prop + '"';
-      results.push(item); 
-    }
-    return '{' + results.join(',') + '}';
+        var item = '';
+        var prop = obj[key];
+        if (typeof prop !== 'string' && typeof prop !== 'number') {
+        }
+        item += '"' + key + '"' + ':' + '"' + prop + '"';
+        results.push(item); 
+      }
+      return '{' + results.join(',') + '}';
     }
   }
 };

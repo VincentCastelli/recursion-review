@@ -21,6 +21,7 @@ describe('getElementsByClassName', function() {
       var expectedArray = Array.prototype.slice.apply(expectedNodeList);
       var equality = _.isEqual(result, expectedArray); // why can't we use `===` here?
       expect(equality).to.equal(true);
+      expect(result).to.equal('')
 
       $rootElement.remove();
     });
