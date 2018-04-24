@@ -5,38 +5,27 @@
 
 // But instead we're going to implement it from scratch:
 
-var getElementsByClassName = function(className) {
-//var getElementsByClassName = function(className, node, arrayOfClasses) {
-
-  // node = node || document.body;
-  // if (arrayOfClasses === undefined) {
-  //   arrayOfClasses === [];
-  // }
-  
-  // _.each(node, function(element) {
-  //   if (element.childNodes) {
-  //     getElementsByClassName(element.childNodes);
-  //   } else if ( element.className === className ) {
-  //     arrayOfClasses.push(element);
-  //   }
-  // });
-
-  // return arrayOfClasses; 
-
+var getElementsByClassName = function (className) {
+  // create an array to return
   var arrayOfClasses = [];
-  var doc = document.body;
 
-  var bodySearch = function(body) {
-    if (doc.classList && ._contains(doc.classList, className) {
-      arrayOfClasses.push(body);
-    })
-    if (doc.childNodes) {
-      for (var i = 0; i < doc.childNodes.length; i++) {
-        bodySearch(doc.childNodes[i]);
-      }
+  // create search function with 1 arg: node
+  var bodySearch = function (node) {
+    // split multiple classes by space and use
+    // indexOf to search within splits for match
+    var classSplit = node.className.split(' ');
+    if (classSplit.indexOf(className) >= 0) {
+      // push matches to array
+      arrayOfClasses.push(node);
     }
-  } 
+
+    // iterate through children and call search function
+    for (var i = 0; i < node.children.length; i++) {
+      bodySearch(node.children[i]);
+    }
+  };
+
+  bodySearch(document.body);
 
   return arrayOfClasses;
 };
-
