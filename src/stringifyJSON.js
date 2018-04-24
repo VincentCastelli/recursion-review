@@ -3,53 +3,33 @@
 
 // but you don't so you're going to write it from scratch:
 
-var stringifyJSON = function(obj) {
+var stringifyJSON = function (obj) {
   // your code goes here
+  if (Array.isArray(obj)) {
+    var results = [];
+    _.each(obj, function (el) {
+        results.push(stringifyJSON(el));
+      });
 
-  if (typeof obj === 'number') {
-    return obj.toString();
+    return '[' + results.join(',') + ']';
   }
 
-  if (obj === null) {
-    return 'null';
-  }
+  if (obj && typeof obj === 'object') {
+    var results = [];
+    for (var key in obj) {
+      if (obj[key] === undefined || typeof obj[key] === 'function') {
+        continue;
+      }
 
-  if (typeof obj === 'boolean') {
-    if (obj === true) {
-      return 'true';
-    } else {
-      return 'false';
+      results.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key]));
     }
+
+    return '{' + results.join(',') + '}';
   }
 
   if (typeof obj === 'string') {
     return '"' + obj + '"';
   }
 
-  if (Array.isArray(obj)) {
-    if (obj.length === 0) {
-      return '[]';
-    } else {
-      var results = [];
-      _.each(obj, function(el) {
-        results.push(stringifyJSON(el));
-      });
-      return '[' + results.join(',') + ']'; 
-    } 
-  } else {
-    if (Object.keys(obj).length === 0) {
-      return '{}';
-    } else {
-      var results = [];
-      for (var key in obj) {
-        var item = '';
-        var prop = obj[key];
-        if (typeof prop !== 'string' && typeof prop !== 'number') {
-        }
-        item += '"' + key + '"' + ':' + '"' + prop + '"';
-        results.push(item); 
-      }
-      return '{' + results.join(',') + '}';
-    }
-  }
+  return '' + obj;
 };
